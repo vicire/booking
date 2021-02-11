@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
@@ -37,13 +37,13 @@ public class UserController {
 
     @GetMapping("/{user_id}")
     public UserResponseDto getUser(@PathVariable("user_id") Long id) {
-        return userMapper.getDto(userService.get(id));
+        return userMapper.toDto(userService.get(id));
     }
 
     @GetMapping
     public List<UserResponseDto> getAll() {
         return userService.listUsers().stream()
-                .map(userMapper::getDto)
+                .map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
