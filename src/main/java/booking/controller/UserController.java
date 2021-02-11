@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    private static final int USER_QUANTITY = 4;
     private final UserService userService;
     private final UserMapper userMapper;
 
@@ -24,13 +25,12 @@ public class UserController {
 
     @GetMapping("/inject")
     public String injectUser() {
-        User[] users = new User[4];
-        for (int i = 0; i < users.length; i++) {
-            users[i] = new User();
-            users[i].setName("Childish");
-            users[i].setSurname("Gambino" + i);
-            users[i].setEmail("dto@gmail.com");
-            userService.add(users[i]);
+        for (int i = 0; i < USER_QUANTITY; i++) {
+            User user = new User();
+            user.setName("Childish");
+            user.setSurname("Gambino" + i);
+            user.setEmail("dto" + i + "@gmail.com");
+            userService.add(user);
         }
         return "This is America";
     }

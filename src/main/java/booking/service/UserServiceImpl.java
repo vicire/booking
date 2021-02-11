@@ -25,9 +25,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long id) {
-        if (userDao.get(id).isEmpty()) {
-            return null;
-        }
-        return userDao.get(id).get();
+        return userDao.get(id).orElseThrow(() ->
+                new RuntimeException("There is no user by id " + id));
     }
 }
